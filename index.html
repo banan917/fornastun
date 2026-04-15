@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Для Насти 💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    color: white;
+    overflow: hidden;
+}
+
+/* слайды */
+.slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 25px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+
+.active {
+    display: flex;
+    animation: fade 1s;
+}
+
+@keyframes fade {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+/* текст */
+h1 {
+    font-size: 8vw;
+    margin-bottom: 15px;
+}
+
+p {
+    font-size: 4.5vw;
+    line-height: 1.6;
+    max-width: 90%;
+}
+
+/* кнопка */
+button {
+    margin-top: 25px;
+    margin-bottom: 30px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 25px;
+    background: #ff4da6;
+    color: white;
+    font-size: 4.5vw;
+    cursor: pointer;
+}
+
+/* сердечки */
+.heart {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: red;
+    transform: rotate(45deg);
+    animation: float 6s linear infinite;
+}
+
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: red;
+    border-radius: 50%;
+}
+
+.heart::before { top: -6px; left: 0; }
+.heart::after { left: -6px; top: 0; }
+
+@keyframes float {
+    0% {transform: translateY(100vh) rotate(45deg); opacity:1;}
+    100% {transform: translateY(-10vh) rotate(45deg); opacity:0;}
+}
+
+/* прогресс */
+.progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    background: #ff4da6;
+    width: 0%;
+}
+
+/* фоны */
+.slide:nth-child(2){background: linear-gradient(#ff9a9e,#fad0c4);}
+.slide:nth-child(3){background: linear-gradient(#a18cd1,#fbc2eb);}
+.slide:nth-child(4){background: linear-gradient(#fad0c4,#ffd1ff);}
+.slide:nth-child(5){background: linear-gradient(#ffecd2,#fcb69f);}
+.slide:nth-child(6){background: linear-gradient(#ff9a9e,#fecfef);}
+.slide:nth-child(7){background: linear-gradient(#fbc2eb,#a6c1ee);}
+
+@media (min-width: 768px) {
+    h1 { font-size: 50px; }
+    p { font-size: 20px; max-width: 600px; }
+    button { font-size: 18px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- 1 -->
+<div class="slide active">
+    <h1>Настя 💖</h1>
+    <p>
+        Я сделал этот небольшой сайт для тебя…<br><br>
+        Возможно, он выглядит просто,<br>
+        но в нём гораздо больше смысла ✨<br><br>
+        Иногда чувства сложно сказать словами,<br>
+        поэтому я решил показать это вот так 💌
+    </p>
+    <button onclick="nextSlide()">Начать</button>
+</div>
+
+<!-- 2 -->
+<div class="slide">
+    <h1>Ты особенная 💫</h1>
+    <p>
+        Есть люди, которых просто встречаешь…<br>
+        и забываешь.<br><br>
+        А есть ты — и всё становится иначе 💕<br><br>
+        В тебе есть тепло,<br>
+        которое невозможно не почувствовать
+    </p>
+    <button onclick="nextSlide()">Дальше →</button>
+</div>
+
+<!-- 3 -->
+<div class="slide">
+    <h1>С тобой по-другому</h1>
+    <p>
+        Даже обычные моменты рядом с тобой<br>
+        становятся особенными ✨<br><br>
+        Время проходит быстрее,<br>
+        а настроение становится лучше 💖
+    </p>
+    <button onclick="nextSlide()">Дальше →</button>
+</div>
+
+<!-- 4 -->
+<div class="slide">
+    <h1>Я запоминаю</h1>
+    <p>
+        Твои слова, взгляд,<br>
+        даже мелочи 💭<br><br>
+        Всё это остаётся в памяти<br>
+        потому что для меня это важно
+    </p>
+    <button onclick="nextSlide()">Дальше →</button>
+</div>
+
+<!-- 5 -->
+<div class="slide">
+    <h1>Ты вдохновляешь</h1>
+    <p>
+        Просто своим присутствием 💕<br><br>
+        Ты делаешь этот мир<br>
+        немного теплее и лучше ✨
+    </p>
+    <button onclick="nextSlide()">Дальше →</button>
+</div>
+
+<!-- 6 -->
+<div class="slide">
+    <h1>Настя 💌</h1>
+    <p>
+        Я не буду говорить много сложных слов…<br><br>
+        Скажу просто:<br><br>
+        Ты очень важна для меня 💖<br><br>
+        И этот сайт — напоминание об этом
+    </p>
+    <button onclick="heartsExplosion()">💖</button>
+</div>
+
+<script>
+let current = 0;
+const slides = document.querySelectorAll('.slide');
+const progress = document.getElementById('progress');
+
+function nextSlide() {
+    slides[current].classList.remove('active');
+    current++;
+    if(current >= slides.length) current = slides.length - 1;
+    slides[current].classList.add('active');
+
+    progress.style.width = ((current)/(slides.length-1))*100 + '%';
+}
+
+/* сердечки */
+function createHeart() {
+    const heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = Math.random() * 100 + 'vw';
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+}
+setInterval(createHeart, 300);
+
+/* взрыв */
+function heartsExplosion() {
+    for(let i=0;i<200;i++){
+        setTimeout(createHeart, i*20);
+    }
+}
+
+/* свайп */
+let startX = 0;
+document.addEventListener("touchstart", e => startX = e.touches[0].clientX);
+document.addEventListener("touchend", e => {
+    let endX = e.changedTouches[0].clientX;
+    if(startX - endX > 60) nextSlide();
+});
+</script>
+
+</body>
+</html>
